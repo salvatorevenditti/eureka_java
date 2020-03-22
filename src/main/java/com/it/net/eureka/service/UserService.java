@@ -1,14 +1,14 @@
-package com.it.example.demo.service;
+package com.it.net.eureka.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.it.example.demo.dto.CreateUserDto;
-import com.it.example.demo.dto.LoginUserDto;
-import com.it.example.demo.model.User;
-import com.it.example.demo.repo.UserRepository;
-import com.it.example.demo.validator.CreateUserValidator;
-import com.it.example.demo.validator.LoginUserValidator;
+import com.it.net.eureka.dto.CreateUserDto;
+import com.it.net.eureka.dto.LoginUserDto;
+import com.it.net.eureka.model.User;
+import com.it.net.eureka.repo.UserRepository;
+import com.it.net.eureka.validator.CreateUserValidator;
+import com.it.net.eureka.validator.LoginUserValidator;
 
 @Service
 public class UserService {

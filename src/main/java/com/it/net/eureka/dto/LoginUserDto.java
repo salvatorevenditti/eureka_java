@@ -1,4 +1,4 @@
-package com.it.example.demo.dto;
+package com.it.net.eureka.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

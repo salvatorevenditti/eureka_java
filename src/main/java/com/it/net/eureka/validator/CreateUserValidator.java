@@ -1,10 +1,10 @@
-package com.it.example.demo.validator;
+package com.it.net.eureka.validator;
 
 import javax.validation.ValidationException;
 
 import org.springframework.stereotype.Component;
 
-import com.it.example.demo.dto.CreateUserDto;
+import com.it.net.eureka.dto.CreateUserDto;
 
 @Component
 public class CreateUserValidator extends UserValidator {

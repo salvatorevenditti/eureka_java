@@ -1,4 +1,4 @@
-package com.it.example.demo.utils;
+package com.it.net.eureka.utils;
 
 import java.security.SecureRandom;
 import java.security.spec.KeySpec;

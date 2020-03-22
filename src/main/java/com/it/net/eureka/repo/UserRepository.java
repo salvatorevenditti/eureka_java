@@ -1,10 +1,10 @@
-package com.it.example.demo.repo;
+package com.it.net.eureka.repo;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.it.example.demo.model.User;
+import com.it.net.eureka.model.User;
 
 public interface UserRepository extends CrudRepository<User, Integer>{
 

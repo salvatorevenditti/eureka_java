@@ -1,4 +1,4 @@
-package com.it.example.demo.controller;
+package com.it.net.eureka.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.it.example.demo.dto.CreateUserDto;
-import com.it.example.demo.dto.LoginUserDto;
-import com.it.example.demo.model.User;
-import com.it.example.demo.service.UserService;
+import com.it.net.eureka.dto.CreateUserDto;
+import com.it.net.eureka.dto.LoginUserDto;
+import com.it.net.eureka.model.User;
+import com.it.net.eureka.service.UserService;
 
 @Controller
 public class AccessController {

@@ -1,4 +1,4 @@
-package com.it.example.demo.validator;
+package com.it.net.eureka.validator;
 
 import java.util.Arrays;
 
@@ -6,9 +6,9 @@ import javax.validation.ValidationException;
 
 import org.springframework.stereotype.Component;
 
-import com.it.example.demo.dto.LoginUserDto;
-import com.it.example.demo.model.User;
-import com.it.example.demo.utils.CryptoUtil;
+import com.it.net.eureka.dto.LoginUserDto;
+import com.it.net.eureka.model.User;
+import com.it.net.eureka.utils.CryptoUtil;
 
 @Component
 public class LoginUserValidator extends UserValidator{

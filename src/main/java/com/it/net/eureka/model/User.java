@@ -1,4 +1,4 @@
-package com.it.example.demo.model;
+package com.it.net.eureka.model;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import com.it.example.demo.dto.CreateUserDto;
-import com.it.example.demo.utils.CryptoUtil;
+import com.it.net.eureka.dto.CreateUserDto;
+import com.it.net.eureka.utils.CryptoUtil;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.it.example.demo.validator;
+package com.it.net.eureka.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,8 +7,8 @@ import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.it.example.demo.model.User;
-import com.it.example.demo.repo.UserRepository;
+import com.it.net.eureka.model.User;
+import com.it.net.eureka.repo.UserRepository;
 
 public class UserValidator {
 
