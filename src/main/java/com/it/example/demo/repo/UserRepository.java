@@ -14,7 +14,7 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 			+ "ELSE 'false' "  
 			+ "END)",
 			nativeQuery = true)
-	public boolean findByUsername(@Param("username") String username);
+	public boolean findIfExistsByUsername(@Param("username") String username);
 
 	@Query(value = 
 			"SELECT " 
@@ -22,5 +22,18 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 			+ "ELSE 'false' "  
 			+ "END)",
 			nativeQuery = true)
-	public boolean findByEmail(@Param("email") String email);	
+	public boolean findIfExistsByEmail(@Param("email") String email);	
+	
+	@Query(value = 
+			"SELECT * "
+			+ "FROM User WHERE USERNAME = :username",
+			nativeQuery = true)
+	public User findByUsername(@Param("username") String username);
+	
+	@Query(value = 
+			"SELECT * "
+			+ "FROM User WHERE EMAIL = :email",
+			nativeQuery = true)
+	public User findByEmail(@Param("email") String username);
+
 }

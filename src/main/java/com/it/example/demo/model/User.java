@@ -57,7 +57,6 @@ public class User {
 	}
 	
 	public User mapEntity(CreateUserDto createUserDto) {
-		
 		this.birthDate = createUserDto.getBirthDate();
 		this.email = createUserDto.getEmail();
 		this.username = createUserDto.getUsername();
