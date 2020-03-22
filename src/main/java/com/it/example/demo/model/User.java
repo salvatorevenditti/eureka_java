@@ -12,6 +12,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import com.it.example.demo.dto.CreateUserDto;
+import com.it.example.demo.utils.CryptoUtil;
 
 import lombok.Data;
 
@@ -28,8 +29,11 @@ public class User {
 	@Column(name = "username", nullable = false, insertable = true, length = 12, updatable = false)
 	private String username;
 	
-	@Column(name = "password", nullable = false, insertable = true, length = 16, updatable = true)
-	private String password;
+	@Column(name = "hashPassword", nullable = false, insertable = true, length = 200, updatable = true)
+	private byte[] hashPassword;
+	
+	@Column(name = "saltPassword", nullable = false, insertable = true, length = 200, updatable = true)
+	private byte[] saltPassword;
 	
 	@Column(name = "email", nullable = false, insertable = true, length = 50, updatable = true )
 	private String email;
@@ -56,8 +60,9 @@ public class User {
 		
 		this.birthDate = createUserDto.getBirthDate();
 		this.email = createUserDto.getEmail();
-		this.password = createUserDto.getPassword();
 		this.username = createUserDto.getUsername();
+		this.saltPassword = CryptoUtil.generateSalt();
+		this.hashPassword = CryptoUtil.generateHashWithGivenSalt(createUserDto.getPassword(), this.saltPassword);
 		
 		return this;
 	}
