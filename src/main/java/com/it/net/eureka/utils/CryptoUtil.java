@@ -12,7 +12,6 @@ import lombok.Data;
 public class CryptoUtil {
 
 	public static byte[] generateHashWithGivenSalt(String pwd, byte[] salt) {
-
 		KeySpec spec = new PBEKeySpec(pwd.toCharArray(), salt, 65536, 128);
 		byte[] hash = null;
 		try {

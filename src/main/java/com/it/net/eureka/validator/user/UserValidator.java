@@ -1,4 +1,4 @@
-package com.it.net.eureka.validator;
+package com.it.net.eureka.validator.user;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,8 +7,8 @@ import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.it.net.eureka.model.User;
-import com.it.net.eureka.repo.UserRepository;
+import com.it.net.eureka.model.user.User;
+import com.it.net.eureka.repo.user.UserRepository;
 
 public class UserValidator {
 
@@ -23,16 +23,13 @@ public class UserValidator {
 	private UserRepository userRepository;
 
 	public void checkIfAlreadyExists(String username, String email) {
-
 		String message = null;
-
 		if(userRepository.findIfExistsByUsername(username)) message = "Username Already Exists!";
 		if(userRepository.findIfExistsByEmail(email)) message = message + " Email Already Exists!";
 		if(message != null) throw new ValidationException(message);
 	}
 
 	public User checkIfAlreadyExists(String input) {
-
 		if(checkEmail(input)) 
 			return userRepository.findByEmail(input);
 		else 
@@ -50,9 +47,7 @@ public class UserValidator {
 	}
 
 	public boolean applyRegExp(String regExp, int option, String toMatch) {
-
 		Pattern p = null;
-
 		switch(option) {
 		case CASE_INSENSITIVE:
 			p = Pattern.compile(regExp, Pattern.CASE_INSENSITIVE);
@@ -61,7 +56,6 @@ public class UserValidator {
 			p = Pattern.compile(regExp);
 			break;
 		}
-
 		Matcher m = p.matcher(toMatch);
 		return m.find();
 	}

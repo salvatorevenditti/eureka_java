@@ -1,10 +1,10 @@
-package com.it.net.eureka.repo;
+package com.it.net.eureka.repo.user;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.it.net.eureka.model.User;
+import com.it.net.eureka.model.user.User;
 
 public interface UserRepository extends CrudRepository<User, Integer>{
 
@@ -34,6 +34,6 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 			"SELECT * "
 			+ "FROM User WHERE EMAIL = :email",
 			nativeQuery = true)
-	public User findByEmail(@Param("email") String username);
+	public User findByEmail(@Param("email") String email);
 
 }

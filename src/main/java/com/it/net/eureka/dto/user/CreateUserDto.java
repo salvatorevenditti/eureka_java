@@ -1,4 +1,4 @@
-package com.it.net.eureka.dto;
+package com.it.net.eureka.dto.user;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -15,27 +15,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
-public class CreateUserDto {
-	
-	@NotNull
-	@NotBlank
-	@Size(min = 6, max = 12)
-	@JsonProperty("username")
-	private String username;
-	
-	@NotNull
-	@NotBlank
-	@Size(min = 8, max = 16)
-	@JsonProperty("password")
-	private String password;
-	
-	@NotNull
-	@NotBlank
-	@Size(min = 6, max = 50)
-	@JsonProperty("email")
-	private String email;
+@EqualsAndHashCode(callSuper = false)
+public class CreateUserDto extends UserDto{
 	
 	@NotNull
 	@JsonProperty("registrationDate")
@@ -50,5 +34,11 @@ public class CreateUserDto {
 	@DateTimeFormat(iso = ISO.DATE)
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate birthDate;
+	
+	@NotNull
+	@NotBlank
+	@Size(min = 8, max = 16)
+	@JsonProperty("confirmPassword")
+	private String confirmPassword;
 	
 }

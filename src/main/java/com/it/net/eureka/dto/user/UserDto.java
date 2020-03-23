@@ -1,4 +1,4 @@
-package com.it.net.eureka.dto;
+package com.it.net.eureka.dto.user;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -9,13 +9,13 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 
 @Data
-public class LoginUserDto {
+public class UserDto {
 
 	@NotNull
 	@NotBlank
-	@Size(min = 6, max = 30)
-	@JsonProperty("inputField")
-	private String inputField;
+	@Size(min = 6, max = 12)
+	@JsonProperty("username")
+	private String username;
 	
 	@NotNull
 	@NotBlank
@@ -25,8 +25,7 @@ public class LoginUserDto {
 	
 	@NotNull
 	@NotBlank
-	@Size(min = 8, max = 16)
-	@JsonProperty("confirmPassword")
-	private String confirmPassword;
-	
+	@Size(min = 6, max = 50)
+	@JsonProperty("email")
+	private String email;
 }

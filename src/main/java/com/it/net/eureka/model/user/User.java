@@ -1,4 +1,4 @@
-package com.it.net.eureka.model;
+package com.it.net.eureka.model.user;
 
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
@@ -8,16 +8,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
-import com.it.net.eureka.dto.CreateUserDto;
+import com.it.net.eureka.dto.user.CreateUserDto;
 import com.it.net.eureka.utils.CryptoUtil;
 
 import lombok.Data;
 
 @Entity
-@Table(name = "User")
+@Table(name = "User",
+		indexes = {
+				@Index(columnList = "username", unique = true),
+				@Index(columnList = "email", unique = true)
+				})
 @Data
 public class User {
 
@@ -26,7 +31,7 @@ public class User {
 	@Column(name = "userID", nullable = false, insertable = false, updatable = false)
 	private Integer userID;
 	
-	@Column(name = "username", nullable = false, insertable = true, length = 12, updatable = false)
+	@Column(name = "username", nullable = false, insertable = true, length = 12, updatable = true)
 	private String username;
 	
 	@Column(name = "hashPassword", nullable = false, insertable = true, length = 200, updatable = true)
