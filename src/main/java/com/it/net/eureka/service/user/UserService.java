@@ -48,8 +48,9 @@ public class UserService {
 			throw new NotFoundException("Username doesn't exists!");
 		if(!user.equals(userRepo.findByEmail(changeUserDto.getEmail())))
 			throw new NotFoundException("Email doesn't exists!");
+		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setSaltPassword(CryptoUtil.generateSalt());
-		user.setHashPassword(CryptoUtil.generateHashWithGivenSalt(changeUserDto.getPassword(), user.getSaltPassword()));
+		user.setHashPassword(CryptoUtil.generateHashWithGivenSalt(changeUserDto.getNewPassword(), user.getSaltPassword()));
 		return user = userRepo.save(user);	
 	}
 
@@ -58,7 +59,7 @@ public class UserService {
 		user = userRepo.findByEmail(changeUserDto.getEmail());
 		if(user == null) 
 			throw new NotFoundException("Email doesn't exists!");
-		//TODO Implement Password check
+		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setUsername(changeUserDto.getUsername());
 		return user = userRepo.save(user);
 	}
@@ -68,7 +69,7 @@ public class UserService {
 		user = userRepo.findByUsername(changeUserDto.getUsername());
 		if(user == null) 
 			throw new NotFoundException("Username doesn't exists!");
-		//TODO Implement Password check
+		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setEmail(changeUserDto.getEmail());
 		return user = userRepo.save(user);
 	}

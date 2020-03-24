@@ -11,7 +11,7 @@ import com.it.net.eureka.model.user.User;
 import com.it.net.eureka.utils.CryptoUtil;
 
 @Component
-public class LoginUserValidator extends UserValidator{
+public class LoginUserValidator extends UserValidator {
 
 	public User validate(LoginUserDto loginUserDto, User user) {
 		user = super.checkIfAlreadyExists(loginUserDto.getInputField());
