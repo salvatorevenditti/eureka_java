@@ -48,14 +48,10 @@ public class UserValidator {
 
 	public boolean applyRegExp(String regExp, int option, String toMatch) {
 		Pattern p = null;
-		switch(option) {
-		case CASE_INSENSITIVE:
+		if(option == CASE_INSENSITIVE)
 			p = Pattern.compile(regExp, Pattern.CASE_INSENSITIVE);
-			break;
-		default:
+		else
 			p = Pattern.compile(regExp);
-			break;
-		}
 		Matcher m = p.matcher(toMatch);
 		return m.find();
 	}

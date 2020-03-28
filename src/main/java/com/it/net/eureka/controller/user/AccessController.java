@@ -29,33 +29,35 @@ public class AccessController {
 	@Autowired
 	private UserService userService;
 	
+	private User user;
+	
 	@PostMapping
-	public ResponseEntity<User> signUp (@RequestBody @Validated CreateUserDto createUserDto, User user) {
-		user = userService.createUser(createUserDto, user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<User> signUp (@RequestBody @Validated CreateUserDto createUserDto) {
+		user = userService.createUser(createUserDto);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/login")
-	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto, User user) {
-		user = userService.loginUser(loginUserDto, user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto) {
+		user = userService.loginUser(loginUserDto);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PatchMapping(value = "/password")
-	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto, User user) throws NotFoundException {
-		user = userService.changePassword(changeUserDto, user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
+		user = userService.changePassword(changeUserDto);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PatchMapping(value = "/email")
-	public ResponseEntity<User> changeEmail(@RequestBody @Validated ChangeUserDto changeUserDto, User user) throws NotFoundException {
-		user = userService.changeEmail(changeUserDto, user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<User> changeEmail(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
+		user = userService.changeEmail(changeUserDto);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PatchMapping(value = "/username")
-	public ResponseEntity<User> changeUsername(@RequestBody @Validated ChangeUserDto changeUserDto, User user) throws NotFoundException {
-		user = userService.changeUsername(changeUserDto, user);
-		return new ResponseEntity<User>(user, HttpStatus.OK);
+	public ResponseEntity<User> changeUsername(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
+		user = userService.changeUsername(changeUserDto);
+		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 }

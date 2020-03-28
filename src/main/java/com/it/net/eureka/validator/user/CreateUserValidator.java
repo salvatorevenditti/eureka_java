@@ -9,7 +9,7 @@ import com.it.net.eureka.dto.user.CreateUserDto;
 @Component
 public class CreateUserValidator extends UserValidator {
 	
-	public void validate(CreateUserDto createUserDto) throws ValidationException {
+	public void validate(CreateUserDto createUserDto) {
 		validateInputFields(createUserDto);
 		super.checkIfAlreadyExists(createUserDto.getUsername(), createUserDto.getEmail());
 	}

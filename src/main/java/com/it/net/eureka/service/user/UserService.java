@@ -29,19 +29,21 @@ public class UserService {
 
 	@Autowired
 	private ChangeUserValidator changeUserValidator;
+	
+	private User user;
 
-	public User createUser(CreateUserDto createUserDto, User user) {
+	public User createUser(CreateUserDto createUserDto) {
 		createUserValidator.validate(createUserDto);
 		user.mapEntity(createUserDto);
 		user = userRepo.save(user);
 		return user;
 	}
 
-	public User loginUser(LoginUserDto loginUserDto, User user) {
-		return loginUserValidator.validate(loginUserDto, user);
+	public User loginUser(LoginUserDto loginUserDto) {
+		return loginUserValidator.validate(loginUserDto);
 	}
 
-	public User changePassword(ChangeUserDto changeUserDto, User user) throws NotFoundException {
+	public User changePassword(ChangeUserDto changeUserDto) throws NotFoundException {
 		changeUserValidator.validateNewPassword(changeUserDto);
 		user = userRepo.findByUsername(changeUserDto.getUsername());
 		if(user == null) 
@@ -51,26 +53,26 @@ public class UserService {
 		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setSaltPassword(CryptoUtil.generateSalt());
 		user.setHashPassword(CryptoUtil.generateHashWithGivenSalt(changeUserDto.getNewPassword(), user.getSaltPassword()));
-		return user = userRepo.save(user);	
+		return userRepo.save(user);	
 	}
 
-	public User changeUsername(ChangeUserDto changeUserDto, User user) throws NotFoundException {
+	public User changeUsername(ChangeUserDto changeUserDto) throws NotFoundException {
 		changeUserValidator.validateNewUsername(changeUserDto);
 		user = userRepo.findByEmail(changeUserDto.getEmail());
 		if(user == null) 
 			throw new NotFoundException("Email doesn't exists!");
 		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setUsername(changeUserDto.getUsername());
-		return user = userRepo.save(user);
+		return userRepo.save(user);
 	}
 
-	public User changeEmail(ChangeUserDto changeUserDto, User user) throws NotFoundException {
+	public User changeEmail(ChangeUserDto changeUserDto) throws NotFoundException {
 		changeUserValidator.validateNewEmail(changeUserDto);
 		user = userRepo.findByUsername(changeUserDto.getUsername());
 		if(user == null) 
 			throw new NotFoundException("Username doesn't exists!");
 		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setEmail(changeUserDto.getEmail());
-		return user = userRepo.save(user);
+		return userRepo.save(user);
 	}
 }

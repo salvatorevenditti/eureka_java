@@ -15,15 +15,12 @@ import javax.persistence.Table;
 import com.it.net.eureka.dto.user.CreateUserDto;
 import com.it.net.eureka.utils.CryptoUtil;
 
-import lombok.Data;
-
 @Entity
 @Table(name = "User",
 		indexes = {
 				@Index(columnList = "username", unique = true),
 				@Index(columnList = "email", unique = true)
 				})
-@Data
 public class User {
 
 	@Id
@@ -69,5 +66,69 @@ public class User {
 		this.hashPassword = CryptoUtil.generateHashWithGivenSalt(createUserDto.getPassword(), this.saltPassword);
 		
 		return this;
+	}
+
+	public Integer getUserID() {
+		return userID;
+	}
+
+	public void setUserID(Integer userID) {
+		this.userID = userID;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public byte[] getHashPassword() {
+		return hashPassword;
+	}
+
+	public void setHashPassword(byte[] hashPassword) {
+		this.hashPassword = hashPassword;
+	}
+
+	public byte[] getSaltPassword() {
+		return saltPassword;
+	}
+
+	public void setSaltPassword(byte[] saltPassword) {
+		this.saltPassword = saltPassword;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public OffsetDateTime getRegistrationDate() {
+		return registrationDate;
+	}
+
+	public void setRegistrationDate(OffsetDateTime registrationDate) {
+		this.registrationDate = registrationDate;
+	}
+
+	public OffsetDateTime getLastChangeDate() {
+		return lastChangeDate;
+	}
+
+	public void setLastChangeDate(OffsetDateTime lastChangeDate) {
+		this.lastChangeDate = lastChangeDate;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
 	}
 }
