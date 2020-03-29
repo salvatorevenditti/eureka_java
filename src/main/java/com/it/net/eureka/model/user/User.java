@@ -1,5 +1,7 @@
 package com.it.net.eureka.model.user;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
@@ -58,7 +60,7 @@ public class User {
 		this.lastChangeDate = OffsetDateTime.now();
 	}
 	
-	public User mapEntity(CreateUserDto createUserDto) {
+	public User mapEntity(CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		this.birthDate = createUserDto.getBirthDate();
 		this.email = createUserDto.getEmail();
 		this.username = createUserDto.getUsername();

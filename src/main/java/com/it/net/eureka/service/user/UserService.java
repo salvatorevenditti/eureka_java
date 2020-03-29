@@ -1,5 +1,8 @@
 package com.it.net.eureka.service.user;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,18 +35,18 @@ public class UserService {
 	
 	private User user;
 
-	public User createUser(CreateUserDto createUserDto) {
+	public User createUser(CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		createUserValidator.validate(createUserDto);
 		user.mapEntity(createUserDto);
 		user = userRepo.save(user);
 		return user;
 	}
 
-	public User loginUser(LoginUserDto loginUserDto) {
+	public User loginUser(LoginUserDto loginUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		return loginUserValidator.validate(loginUserDto);
 	}
 
-	public User changePassword(ChangeUserDto changeUserDto) throws NotFoundException {
+	public User changePassword(ChangeUserDto changeUserDto) throws NotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		changeUserValidator.validateNewPassword(changeUserDto);
 		user = userRepo.findByUsername(changeUserDto.getUsername());
 		if(user == null) 

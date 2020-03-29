@@ -1,5 +1,7 @@
 package com.it.net.eureka.validator.user;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 
 import javax.validation.ValidationException;
@@ -16,7 +18,7 @@ public class ChangeUserValidator extends UserValidator {
 	public void validateNewUsername(ChangeUserDto changeUserDto) {
 		if(!super.checkEmail(changeUserDto.getEmail())) 
 			throw new ValidationException("Email's pattern is not correct!");
-		if(checkIfAlreadyExists(changeUserDto.getUsername()) != null)
+		if(super.checkIfAlreadyExists(changeUserDto.getUsername()) != null)
 			throw new ValidationException("Username Already Exists!");
 	}
 
@@ -26,13 +28,17 @@ public class ChangeUserValidator extends UserValidator {
 	}
 
 	public void validateNewEmail(ChangeUserDto changeUserDto) {
-		if(checkIfAlreadyExists(changeUserDto.getEmail()) != null)
+		if(super.checkIfAlreadyExists(changeUserDto.getEmail()) != null)
 			throw new ValidationException("Email Already Exists!");
 	}
 	
 	public void checkOldPassword(ChangeUserDto changeUserDto, User user) {
-		if(!Arrays.equals(user.getHashPassword(), CryptoUtil.generateHashWithGivenSalt(
-				changeUserDto.getPassword(), user.getSaltPassword())))
-			throw new ValidationException("Email/Username and Password are wrong!");
+		try {
+			if(!Arrays.equals(user.getHashPassword(), CryptoUtil.generateHashWithGivenSalt(
+					changeUserDto.getPassword(), user.getSaltPassword())))
+				throw new ValidationException("Email/Username and Password are wrong!");
+		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+			//TODO Throw custom exception
+		}
 	}
 }

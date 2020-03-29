@@ -1,5 +1,8 @@
 package com.it.net.eureka.controller.user;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,19 +35,19 @@ public class AccessController {
 	private User user;
 	
 	@PostMapping
-	public ResponseEntity<User> signUp (@RequestBody @Validated CreateUserDto createUserDto) {
+	public ResponseEntity<User> signUp (@RequestBody @Validated CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		user = userService.createUser(createUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/login")
-	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto) {
+	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		user = userService.loginUser(loginUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PatchMapping(value = "/password")
-	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
+	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		user = userService.changePassword(changeUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
