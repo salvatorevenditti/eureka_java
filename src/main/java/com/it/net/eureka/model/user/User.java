@@ -1,21 +1,11 @@
 package com.it.net.eureka.model.user;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.time.LocalDate;
-import java.time.OffsetDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-
 import com.it.net.eureka.dto.user.CreateUserDto;
 import com.it.net.eureka.utils.CryptoUtil;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.OffsetDateTime;
 
 @Entity
 @Table(name = "User",
@@ -50,23 +40,23 @@ public class User {
 	
 	@Column(name = "birthDate", nullable = true, insertable = true, updatable = false)
 	private LocalDate birthDate;
-	
+
 	public User() {
 		this.registrationDate = OffsetDateTime.now();
 	}
-	
+
 	@PrePersist
 	public void init() {
 		this.lastChangeDate = OffsetDateTime.now();
 	}
-	
-	public User mapEntity(CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+	public User mapEntity(CreateUserDto createUserDto) {
 		this.birthDate = createUserDto.getBirthDate();
 		this.email = createUserDto.getEmail();
 		this.username = createUserDto.getUsername();
 		this.saltPassword = CryptoUtil.generateSalt();
 		this.hashPassword = CryptoUtil.generateHashWithGivenSalt(createUserDto.getPassword(), this.saltPassword);
-		
+
 		return this;
 	}
 

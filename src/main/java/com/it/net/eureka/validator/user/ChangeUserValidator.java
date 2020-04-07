@@ -1,16 +1,12 @@
 package com.it.net.eureka.validator.user;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Arrays;
-
-import javax.validation.ValidationException;
-
-import org.springframework.stereotype.Component;
-
 import com.it.net.eureka.dto.user.ChangeUserDto;
 import com.it.net.eureka.model.user.User;
 import com.it.net.eureka.utils.CryptoUtil;
+import org.springframework.stereotype.Component;
+
+import javax.validation.ValidationException;
+import java.util.Arrays;
 
 @Component
 public class ChangeUserValidator extends UserValidator {
@@ -31,14 +27,10 @@ public class ChangeUserValidator extends UserValidator {
 		if(super.checkIfAlreadyExists(changeUserDto.getEmail()) != null)
 			throw new ValidationException("Email Already Exists!");
 	}
-	
+
 	public void checkOldPassword(ChangeUserDto changeUserDto, User user) {
-		try {
-			if(!Arrays.equals(user.getHashPassword(), CryptoUtil.generateHashWithGivenSalt(
-					changeUserDto.getPassword(), user.getSaltPassword())))
-				throw new ValidationException("Email/Username and Password are wrong!");
-		} catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-			//TODO Throw custom exception
-		}
+		if (!Arrays.equals(user.getHashPassword(), CryptoUtil.generateHashWithGivenSalt(
+				changeUserDto.getPassword(), user.getSaltPassword())))
+			throw new ValidationException("Email/Username and Password are wrong!");
 	}
 }

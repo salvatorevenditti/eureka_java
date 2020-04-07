@@ -1,11 +1,5 @@
 package com.it.net.eureka.service.user;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.it.net.eureka.dto.user.ChangeUserDto;
 import com.it.net.eureka.dto.user.CreateUserDto;
 import com.it.net.eureka.dto.user.LoginUserDto;
@@ -15,8 +9,9 @@ import com.it.net.eureka.utils.CryptoUtil;
 import com.it.net.eureka.validator.user.ChangeUserValidator;
 import com.it.net.eureka.validator.user.CreateUserValidator;
 import com.it.net.eureka.validator.user.LoginUserValidator;
-
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
@@ -32,31 +27,31 @@ public class UserService {
 
 	@Autowired
 	private ChangeUserValidator changeUserValidator;
-	
+
 	private User user;
 
-	public User createUser(CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public User createUser(CreateUserDto createUserDto) {
 		createUserValidator.validate(createUserDto);
 		user.mapEntity(createUserDto);
 		user = userRepo.save(user);
 		return user;
 	}
 
-	public User loginUser(LoginUserDto loginUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public User loginUser(LoginUserDto loginUserDto) {
 		return loginUserValidator.validate(loginUserDto);
 	}
 
-	public User changePassword(ChangeUserDto changeUserDto) throws NotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+	public User changePassword(ChangeUserDto changeUserDto) throws NotFoundException {
 		changeUserValidator.validateNewPassword(changeUserDto);
 		user = userRepo.findByUsername(changeUserDto.getUsername());
-		if(user == null) 
+		if (user == null)
 			throw new NotFoundException("Username doesn't exists!");
-		if(!user.equals(userRepo.findByEmail(changeUserDto.getEmail())))
+		if (!user.equals(userRepo.findByEmail(changeUserDto.getEmail())))
 			throw new NotFoundException("Email doesn't exists!");
 		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setSaltPassword(CryptoUtil.generateSalt());
 		user.setHashPassword(CryptoUtil.generateHashWithGivenSalt(changeUserDto.getNewPassword(), user.getSaltPassword()));
-		return userRepo.save(user);	
+		return userRepo.save(user);
 	}
 
 	public User changeUsername(ChangeUserDto changeUserDto) throws NotFoundException {
