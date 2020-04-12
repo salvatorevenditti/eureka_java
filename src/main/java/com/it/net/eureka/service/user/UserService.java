@@ -38,7 +38,7 @@ public class UserService {
 	}
 
 	public User loginUser(LoginUserDto loginUserDto) {
-		return loginUserValidator.validate(loginUserDto);
+		return loginUserValidator.validate(loginUserDto, user);
 	}
 
 	public User changePassword(ChangeUserDto changeUserDto) throws NotFoundException {
@@ -57,7 +57,7 @@ public class UserService {
 	public User changeUsername(ChangeUserDto changeUserDto) throws NotFoundException {
 		changeUserValidator.validateNewUsername(changeUserDto);
 		user = userRepo.findByEmail(changeUserDto.getEmail());
-		if(user == null) 
+		if (user == null)
 			throw new NotFoundException("Email doesn't exists!");
 		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setUsername(changeUserDto.getUsername());
@@ -67,7 +67,7 @@ public class UserService {
 	public User changeEmail(ChangeUserDto changeUserDto) throws NotFoundException {
 		changeUserValidator.validateNewEmail(changeUserDto);
 		user = userRepo.findByUsername(changeUserDto.getUsername());
-		if(user == null) 
+		if (user == null)
 			throw new NotFoundException("Username doesn't exists!");
 		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setEmail(changeUserDto.getEmail());
