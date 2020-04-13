@@ -11,8 +11,8 @@ import java.util.Arrays;
 @Component
 public class LoginUserValidator extends UserValidator {
 
-    public User validate(LoginUserDto loginUserDto, User user) {
-        user = super.checkIfAlreadyExists(loginUserDto.getInputField());
+    public User validate(LoginUserDto loginUserDto) {
+        User user = super.checkIfAlreadyExists(loginUserDto.getInputField());
         if (user == null) throw new ValidationException("Username/Email does not exists!");
         return doLogin(loginUserDto, user);
     }

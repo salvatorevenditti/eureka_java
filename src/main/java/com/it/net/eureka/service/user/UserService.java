@@ -38,7 +38,7 @@ public class UserService {
 	}
 
 	public User loginUser(LoginUserDto loginUserDto) {
-		return loginUserValidator.validate(loginUserDto, user);
+		return loginUserValidator.validate(loginUserDto);
 	}
 
 	public User changePassword(ChangeUserDto changeUserDto) throws NotFoundException {

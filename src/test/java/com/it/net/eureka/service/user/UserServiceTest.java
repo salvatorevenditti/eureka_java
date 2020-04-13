@@ -74,7 +74,7 @@ public class UserServiceTest {
 
 	@Test
 	public final void testLoginUser() throws Exception {
-        given(loginUserValidator.validate(loginUserDto, user)).willReturn(user);
+        given(loginUserValidator.validate(loginUserDto)).willReturn(user);
         assertNotNull(userService.loginUser(loginUserDto));
     }
 

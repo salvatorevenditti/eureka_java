@@ -13,9 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
 @RestController
 @RequestMapping(value = "/user", 
 	produces = {MediaType.APPLICATION_JSON_VALUE}, 
@@ -28,19 +25,19 @@ public class AccessController {
 	private User user;
 
 	@PostMapping
-	public ResponseEntity<User> signUp(@RequestBody @Validated CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public ResponseEntity<User> signUp(@RequestBody @Validated CreateUserDto createUserDto) {
 		user = userService.createUser(createUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/login")
-	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto) {
 		user = userService.loginUser(loginUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/password")
-	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
+	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
 		user = userService.changePassword(changeUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}

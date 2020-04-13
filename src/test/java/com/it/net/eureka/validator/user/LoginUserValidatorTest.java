@@ -53,12 +53,12 @@ public class LoginUserValidatorTest {
 
 	@Test
 	public final void testValidate() throws Exception {
-		loginUserDto.setInputField(TEST_INPUT);
-		given(loginUserValidator.checkIfAlreadyExists(loginUserDto.getInputField())).willReturn(user);
-		assertDoesNotThrow(() -> loginUserValidator.validate(loginUserDto, user));
-		given(loginUserValidator.checkIfAlreadyExists(loginUserDto.getInputField())).willReturn(user = null);
-		assertThrows(ValidationException.class, () -> loginUserValidator.validate(loginUserDto, user));
-	}
+        loginUserDto.setInputField(TEST_INPUT);
+        given(loginUserValidator.checkIfAlreadyExists(loginUserDto.getInputField())).willReturn(user);
+        assertDoesNotThrow(() -> loginUserValidator.validate(loginUserDto));
+        given(loginUserValidator.checkIfAlreadyExists(loginUserDto.getInputField())).willReturn(user = null);
+        assertThrows(ValidationException.class, () -> loginUserValidator.validate(loginUserDto));
+    }
 
 	@Test
 	public final void testDoLogin() throws Exception {

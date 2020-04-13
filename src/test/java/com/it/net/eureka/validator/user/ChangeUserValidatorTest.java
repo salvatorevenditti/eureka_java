@@ -78,7 +78,6 @@ public class ChangeUserValidatorTest {
 		assertDoesNotThrow(() -> changeUserValidator.validateNewPassword(changeUserDto));
 	}
 
-
 	@Test
 	public final void testValidateNewEmailNoException() throws Exception {
 		changeUserDto.setEmail(TEST_EMAIL_FALSE);

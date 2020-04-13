@@ -21,28 +21,30 @@ public class UserValidator {
 	private UserRepository userRepository;
 
 	public void checkIfAlreadyExists(String username, String email) {
-		String message = null;
-		if (userRepository.findIfExistsByUsername(username)) message = "Username Already Exists!";
-		if (userRepository.findIfExistsByEmail(email))
-			if (message != null)
-				message = message + " Email Already Exists!";
-			else
-				message = "Email Already Exists!";
-		if (message != null) throw new ValidationException(message);
-	}
+        String message = null;
+        if (userRepository.findIfExistsByUsername(username)) message = "Username Already Exists!";
+        if (userRepository.findIfExistsByEmail(email)) {
+            if (message != null) {
+                message = message + " Email Already Exists!";
+            } else {
+                message = "Email Already Exists!";
+            }
+        }
+        if (message != null) throw new ValidationException(message);
+    }
 
 	public User checkIfAlreadyExists(String input) {
-		if(checkEmail(input)) 
-			return userRepository.findByEmail(input);
-		else 
-			return userRepository.findByUsername(input);
-	}
+        if (checkEmail(input))
+            return userRepository.findByEmail(input);
+        else
+            return userRepository.findByUsername(input);
+    }
 
 	public boolean checkPsw(String pwd) {
-		return (applyRegExp(REG_EXP_SPEC_CHAR, CASE_INSENSITIVE, pwd) 
-				&& applyRegExp(REG_EXP_CPT_LETTER, DEFAULT, pwd) 
-				&& applyRegExp(REG_EXP_NUMBER, DEFAULT, pwd)) ;
-	}
+        return (applyRegExp(REG_EXP_SPEC_CHAR, CASE_INSENSITIVE, pwd)
+                && applyRegExp(REG_EXP_CPT_LETTER, DEFAULT, pwd)
+                && applyRegExp(REG_EXP_NUMBER, DEFAULT, pwd));
+    }
 
 	public boolean checkEmail(String email) {
 		return applyRegExp(REG_EXP_EMAIL, DEFAULT, email);
