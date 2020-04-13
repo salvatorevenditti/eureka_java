@@ -28,7 +28,7 @@ public class UserService {
 	@Autowired
 	private ChangeUserValidator changeUserValidator;
 
-	private User user;
+	private User user = new User();
 
 	public User createUser(CreateUserDto createUserDto) {
 		createUserValidator.validate(createUserDto);

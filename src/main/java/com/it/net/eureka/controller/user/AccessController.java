@@ -1,27 +1,20 @@
 package com.it.net.eureka.controller.user;
 
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.it.net.eureka.dto.user.ChangeUserDto;
 import com.it.net.eureka.dto.user.CreateUserDto;
 import com.it.net.eureka.dto.user.LoginUserDto;
 import com.it.net.eureka.model.user.User;
 import com.it.net.eureka.service.user.UserService;
-
 import javassist.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 
 @RestController
 @RequestMapping(value = "/user", 
@@ -31,21 +24,21 @@ public class AccessController {
 	
 	@Autowired
 	private UserService userService;
-	
+
 	private User user;
-	
+
 	@PostMapping
-	public ResponseEntity<User> signUp (@RequestBody @Validated CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public ResponseEntity<User> signUp(@RequestBody @Validated CreateUserDto createUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		user = userService.createUser(createUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "/login")
+
+	@PostMapping(value = "/login")
 	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		user = userService.loginUser(loginUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
-	
+
 	@PatchMapping(value = "/password")
 	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException, NoSuchAlgorithmException, InvalidKeySpecException {
 		user = userService.changePassword(changeUserDto);

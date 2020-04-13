@@ -1,8 +1,9 @@
 package com.it.net.eureka.validator.user;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
+import com.it.net.eureka.dto.user.ChangeUserDto;
+import com.it.net.eureka.model.user.User;
+import com.it.net.eureka.repo.user.UserRepository;
+import com.it.net.eureka.utils.CryptoUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,14 +12,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.it.net.eureka.dto.user.ChangeUserDto;
-import com.it.net.eureka.model.user.User;
-import com.it.net.eureka.repo.user.UserRepository;
-import com.it.net.eureka.utils.CryptoUtil;
-
-import static org.mockito.BDDMockito.*;
-
 import javax.validation.ValidationException;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ChangeUserValidatorTest {
@@ -70,14 +68,14 @@ public class ChangeUserValidatorTest {
 
 	@Test
 	public final void testValidateNewPasswordException() throws Exception {
-		changeUserDto.setPassword(TEST_PWD_FALSE);
+		changeUserDto.setNewPassword(TEST_PWD_FALSE);
 		assertThrows(ValidationException.class, () -> changeUserValidator.validateNewPassword(changeUserDto));
 	}
 	
 	@Test
 	public final void testValidateNewPasswordNoException() throws Exception {
-		changeUserDto.setPassword(TEST_PWD_TRUE);
-		assertDoesNotThrow( () -> changeUserValidator.validateNewPassword(changeUserDto));
+		changeUserDto.setNewPassword(TEST_PWD_TRUE);
+		assertDoesNotThrow(() -> changeUserValidator.validateNewPassword(changeUserDto));
 	}
 
 

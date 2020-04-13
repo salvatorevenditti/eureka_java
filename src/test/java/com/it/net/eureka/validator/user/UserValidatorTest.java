@@ -1,14 +1,7 @@
 package com.it.net.eureka.validator.user;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.when;
-
-import javax.validation.ValidationException;
-
+import com.it.net.eureka.model.user.User;
+import com.it.net.eureka.repo.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,8 +10,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.it.net.eureka.model.user.User;
-import com.it.net.eureka.repo.user.UserRepository;
+import javax.validation.ValidationException;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserValidatorTest {
@@ -46,6 +42,8 @@ public class UserValidatorTest {
 	public final void testCheckIfAlreadyExistsStringStringTrue() throws Exception {
 		when(userRepository.findIfExistsByUsername(STR_USERNAME)).thenReturn(true);
 		when(userRepository.findIfExistsByEmail(STR_EMAIL)).thenReturn(true);
+		assertThrows(ValidationException.class, () -> userValidator.checkIfAlreadyExists(STR_USERNAME, STR_EMAIL));
+		when(userRepository.findIfExistsByUsername(STR_USERNAME)).thenReturn(false);
 		assertThrows(ValidationException.class, () -> userValidator.checkIfAlreadyExists(STR_USERNAME, STR_EMAIL));
 	}
 

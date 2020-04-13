@@ -19,7 +19,7 @@ public class ChangeUserValidator extends UserValidator {
 	}
 
 	public void validateNewPassword(ChangeUserDto changeUserDto) {
-		if(!super.checkPsw(changeUserDto.getPassword())) 
+		if (!super.checkPsw(changeUserDto.getNewPassword()))
 			throw new ValidationException("Password's pattern is not correct!");
 	}
 

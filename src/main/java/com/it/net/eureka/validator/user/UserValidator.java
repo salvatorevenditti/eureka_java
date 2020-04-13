@@ -1,14 +1,12 @@
 package com.it.net.eureka.validator.user;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.validation.ValidationException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.it.net.eureka.model.user.User;
 import com.it.net.eureka.repo.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.ValidationException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserValidator {
 
@@ -24,9 +22,13 @@ public class UserValidator {
 
 	public void checkIfAlreadyExists(String username, String email) {
 		String message = null;
-		if(userRepository.findIfExistsByUsername(username)) message = "Username Already Exists!";
-		if(userRepository.findIfExistsByEmail(email)) message = message + " Email Already Exists!";
-		if(message != null) throw new ValidationException(message);
+		if (userRepository.findIfExistsByUsername(username)) message = "Username Already Exists!";
+		if (userRepository.findIfExistsByEmail(email))
+			if (message != null)
+				message = message + " Email Already Exists!";
+			else
+				message = "Email Already Exists!";
+		if (message != null) throw new ValidationException(message);
 	}
 
 	public User checkIfAlreadyExists(String input) {
