@@ -4,6 +4,7 @@ import com.it.net.eureka.dto.user.ChangeUserDto;
 import com.it.net.eureka.dto.user.CreateUserDto;
 import com.it.net.eureka.dto.user.LoginUserDto;
 import com.it.net.eureka.model.email.Email;
+import com.it.net.eureka.model.email.EmailType;
 import com.it.net.eureka.model.user.User;
 import com.it.net.eureka.service.email.EmailService;
 import com.it.net.eureka.service.user.UserService;
@@ -27,40 +28,37 @@ public class AccessController {
 	@Autowired
 	private EmailService emailService;
 
-	private User user = new User();
-	private Email email = new Email();
-
 	@PostMapping
 	public ResponseEntity<User> signUp(@RequestBody @Validated CreateUserDto createUserDto) {
-		user = userService.createUser(createUserDto);
-		emailService.mapAndSendEmailForNewUser(email, user);
+		User user = userService.createUser(createUserDto);
+		emailService.mapAndSendEmail(new Email(), EmailType.CREATE_USER, createUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/login")
 	public ResponseEntity<User> logIn(@RequestBody @Validated LoginUserDto loginUserDto) {
-		user = userService.loginUser(loginUserDto);
+		User user = userService.loginUser(loginUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 
 	@PatchMapping(value = "/password")
 	public ResponseEntity<User> changePassword(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
-		user = userService.changePassword(changeUserDto);
-		//TODO Send Email on changed password
+		User user = userService.changePassword(changeUserDto);
+		emailService.mapAndSendEmail(new Email(), EmailType.PASSWORD, changeUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PatchMapping(value = "/email")
 	public ResponseEntity<User> changeEmail(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
-		user = userService.changeEmail(changeUserDto);
-		//TODO Send Email on changed email
+		User user = userService.changeEmail(changeUserDto);
+		emailService.mapAndSendEmail(new Email(), EmailType.EMAIL, changeUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 	
 	@PatchMapping(value = "/username")
 	public ResponseEntity<User> changeUsername(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
-		user = userService.changeUsername(changeUserDto);
-		//TODO Send Email on changed username
+		User user = userService.changeUsername(changeUserDto);
+		emailService.mapAndSendEmail(new Email(), EmailType.USERNAME, changeUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 }
