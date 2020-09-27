@@ -8,13 +8,13 @@ pipeline {
         }
         stage ( 'Build docker image' ) {
             steps {
-                sh 'docker build .t -customnginx:1'
+                sh 'docker build .t -customnginx'
             }
         }
         stage ( 'Push image to registry' ) {
             steps {
                 sh "docker login -u 'salvatorevenditti' -p 'Atsmt.1090' eureka_registry"
-                sh "docker tag customnginx:1 eureka_registry/OCI_TENANCY_NAME/nginx:custom"
+                sh "docker tag customnginx eureka_registry/OCI_TENANCY_NAME/nginx:custom"
                 sh "docker push eureka_registry/OCI_TENANCY_NAME/nginx:custom"
             }
         }
