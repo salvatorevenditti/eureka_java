@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage ( 'Fetch dependencies' ) {
             steps {
-                sh 'docker pull openjdk'
+                sh 'docker pull tomcat'
+                sh 'docker pull maven'
             }
         }
         stage ( 'Build' ) {
@@ -13,7 +14,7 @@ pipeline {
         }
         stage ( 'Deploy' ) {
             steps {
-                 sh 'exit'
+                 sh 'exit 0'
             }
         }
         stage ( 'Push image to registry' ) {
