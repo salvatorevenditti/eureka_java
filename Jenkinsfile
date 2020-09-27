@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage ( 'Fetch dependencies' ) {
             steps {
-                sh 'docker pull open openjdk'
+                sh 'docker pull openjdk'
             }
         }
         stage ( 'Build' ) {
