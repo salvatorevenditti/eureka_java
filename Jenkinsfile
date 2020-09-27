@@ -3,12 +3,17 @@ pipeline {
     stages {
         stage ( 'Fetch dependencies' ) {
             steps {
-                sh 'docker pull nginx:latest'
+                sh 'docker pull open openjdk'
             }
         }
-        stage ( 'Build docker image' ) {
+        stage ( 'Build' ) {
             steps {
-                sh 'docker build .t -customnginx'
+                sh 'mvn clean install'
+            }
+        }
+        stage ( 'Deploy' ) {
+            steps {
+                 sh 'exit'
             }
         }
         stage ( 'Push image to registry' ) {
