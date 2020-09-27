@@ -1,6 +1,11 @@
 pipeline {
     agent { label 'master' }
     stages {
+        stage ( 'Maven build' ) {
+                    steps {
+                        sh 'mvn clean install'
+                    }
+                }
         stage ( 'Fetch dependencies' ) {
             steps {
                 sh 'docker pull nginx:latest'
