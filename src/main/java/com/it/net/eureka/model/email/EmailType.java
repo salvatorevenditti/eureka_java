@@ -4,5 +4,6 @@ public enum EmailType {
     CREATE_USER,
     PASSWORD,
     USERNAME,
-    EMAIL
+    EMAIL,
+    DEFAULT
 }
