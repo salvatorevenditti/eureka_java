@@ -14,7 +14,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CreateUserDto extends UserDto{
+public class CreateUserDto extends UserDto {
 	
 	@NotNull
 	@JsonProperty("registrationDate")

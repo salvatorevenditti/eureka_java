@@ -1,11 +1,13 @@
 package com.it.net.eureka;
 
+import com.it.net.eureka.utils.Costants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.client.LinkDiscoverer;
 import org.springframework.hateoas.client.LinkDiscoverers;
 import org.springframework.hateoas.mediatype.collectionjson.CollectionJsonLinkDiscoverer;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.plugin.core.SimplePluginRegistry;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -34,5 +36,15 @@ public class ProvaApplication {
 		List<LinkDiscoverer> plugins = new ArrayList<>();
 		plugins.add(new CollectionJsonLinkDiscoverer());
 		return new LinkDiscoverers(SimplePluginRegistry.create(plugins));
+	}
+
+	@Bean
+	public SimpleMailMessage emailTemplate() {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(Costants.STR_TEST);
+		message.setFrom(Costants.STR_TEST);
+		message.setSubject(Costants.STR_TEST);
+		message.setText(Costants.STR_TEST);
+		return message;
 	}
 }
