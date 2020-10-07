@@ -4,6 +4,7 @@ import com.it.net.eureka.dto.user.ChangeUserDto;
 import com.it.net.eureka.dto.user.CreateUserDto;
 import com.it.net.eureka.dto.user.LoginUserDto;
 import com.it.net.eureka.model.user.User;
+import com.it.net.eureka.service.email.EmailService;
 import com.it.net.eureka.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,7 +19,9 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class AccessControllerTest {
-//TODO Add send email to test cases
+
+	@Mock
+	private EmailService emailService;
 
 	@Mock
 	private User user;
