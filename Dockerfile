@@ -1,7 +1,6 @@
-FROM nginx:latest
-LABEL maintainer = "logos98ita@gmail.com"
-HEALTHCHECK --interval=5s \
-            --timeout=5s \
-            CMD curl -f http://127.0.0.1:8000 || exit 1
-
-EXPOSE 9090
+# Alpine Linux with OpenJDK JRE
+FROM openjdk:8-jre-alpine
+# copy WAR into image
+COPY docker/eureka-0.0.1-SNAPSHOT.war /app.war
+# run application with this command line
+CMD ["/usr/bin/java", "-jar", "-dockerDspring.profillses.active=default", "/app.war"]
