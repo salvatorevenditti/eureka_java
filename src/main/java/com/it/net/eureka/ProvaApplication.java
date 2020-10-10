@@ -3,6 +3,7 @@ package com.it.net.eureka;
 import com.it.net.eureka.utils.Costants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.client.LinkDiscoverer;
 import org.springframework.hateoas.client.LinkDiscoverers;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableSwagger2
-public class ProvaApplication {
+public class ProvaApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ProvaApplication.class, args);
