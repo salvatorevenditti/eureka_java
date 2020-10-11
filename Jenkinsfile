@@ -1,7 +1,7 @@
 
 pipeline {
     agent {
-        docker { image 'openjdk:8-jre-alpine' }
+        docker { image 'jenkins/agent:alpine' }
     }
    stages {
       stage('Maven Build') {
