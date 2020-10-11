@@ -1,28 +1,27 @@
 pipeline {
-    agent { label 'master' }
-    stages {
-        stage ( 'Fetch dependencies' ) {
-            steps {
-                sh 'docker pull tomcat'
-                sh 'docker pull maven'
+   agent any
+   environment {
+
+   }
+   stages {
+      stage('Build') {
+         steps {
+            // Get some code from a GitHub repository
+            git 'https://github.com/<your-username>/simple-app.git'
+            // Run Maven on a Unix agent.
+            sh "./mvnw -Dmaven.test.failure.ignore=true clean package"
+            // To run Maven on a Windows agent, use
+            // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+         }
+         post {
+            // If Maven was able to run the tests, even if some of the test
+            // failed, record the test results and archive the jar file.
+            success {
+               junit '**/target/surefire-reports/TEST-*.xml'
+               archiveArtifacts 'target/*.jar'
             }
-        }
-        stage ( 'Build' ) {
-            steps {
-                sh 'mvn clean install'
-            }
-        }
-        stage ( 'Deploy' ) {
-            steps {
-                 sh 'exit 0'
-            }
-        }
-        stage ( 'Push image to registry' ) {
-            steps {
-                sh "docker login -u 'salvatorevenditti' -p 'Atsmt.1090' eureka_registry"
-                sh "docker tag customnginx eureka_registry/OCI_TENANCY_NAME/nginx:custom"
-                sh "docker push eureka_registry/OCI_TENANCY_NAME/nginx:custom"
-            }
-        }
-    }
+         }
+      }
+   }
 }
+
