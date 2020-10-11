@@ -27,7 +27,7 @@ pipeline {
 
       stage('Publish docker image on registry') {
         steps {
-            sh "docker login -u 'salvatorevenditti' -p 'Atsmt.1090'"
+            sh "docker login -u 'salvatorevenditti' -p 'Atsmt.1090' docker.io"
             sh "docker pull registry:2.7.1"
             sh "docker rm eureka_registry --force"
             sh "docker run -d --name eureka_registry registry:2.7.1 "
@@ -35,7 +35,7 @@ pipeline {
             sh "docker run -d --name eureka eureka:1.0 "
             sh "docker tag eureka:1.0 eureka_registry"
             sh "docker rm eureka --force"
-            sh "docker push eureka_registry"
+            sh "docker push eureka_registry salvatorevenditti/eureka:${BUILD_NUMBER}"
         }
       }
    }
