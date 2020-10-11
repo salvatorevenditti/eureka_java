@@ -3,4 +3,4 @@ FROM openjdk:8-jre-alpine
 # copy WAR into image
 COPY target/eureka-0.0.1-SNAPSHOT.war /app.war
 # run application with this command line
-CMD ["/usr/bin/java", "-jar", "-dockerDspring.profillses.active=default", "/app.war"]
+CMD ["/usr/bin/java", "-jar", "", "/app.war"]
