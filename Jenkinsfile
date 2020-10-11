@@ -1,8 +1,6 @@
 
 pipeline {
-    agent {
-        docker { image 'jenkins/agent:alpine' }
-    }
+   agent any
    stages {
       stage('Maven Build') {
          steps {
