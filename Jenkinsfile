@@ -21,7 +21,7 @@ pipeline {
 
       stage('Build docker image') {
         steps {
-            sh "docker build -t eureka:1.0"
+            sh "docker build -t eureka:1.0 ."
         }
       }
    }
