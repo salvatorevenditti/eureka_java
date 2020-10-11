@@ -1,8 +1,8 @@
 
 pipeline {
-   agent {
-    docker
-   }
+    agent {
+        docker { image 'node:14-alpine' }
+    }
    stages {
       stage('Maven Build') {
          steps {
@@ -43,7 +43,7 @@ pipeline {
       stage('Deploy container') {
         steps{
             sh "docker pull salvatorevenditti/eureka:${BUILD_NUMBER}"
-            sh "docker run -d --name eureka -p 2525:8080 -v eureka_volume:/var/opt/eureka salvatorevenditti/eureka:${BUILD_NUMBER}"
+            sh "docker run -d --name eureka -p 9090:9090 -v eureka_volume:/var/opt/eureka salvatorevenditti/eureka:${BUILD_NUMBER}"
         }
       }
    }
