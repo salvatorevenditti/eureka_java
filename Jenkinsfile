@@ -40,8 +40,8 @@ pipeline {
 
       stage('Deploy container') {
         steps{
-            sh "docker pull salvatorevenditti/eureka:latest"
-            sh "docker run -d --name eureka -p 2525:8080 -v eureka_volume:/var/opt/eureka salvatorevenditti/eureka:latest"
+            sh "docker pull salvatorevenditti/eureka:${BUILD_NUMBER}"
+            sh "docker run -d --name eureka -p 2525:8080 -v eureka_volume:/var/opt/eureka salvatorevenditti/eureka:${BUILD_NUMBER}"
         }
       }
    }
