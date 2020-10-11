@@ -3,8 +3,6 @@ pipeline {
    stages {
       stage('Build') {
          steps {
-            // Get some code from a GitHub repository
-            git clone 'https://github.com/salvatorevenditti/eureka.git'
             // Run Maven on a Unix agent.
             sh "./mvnw -Dmaven.test.failure.ignore=true clean package"
             // To run Maven on a Windows agent, use
