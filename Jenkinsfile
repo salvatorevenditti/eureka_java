@@ -40,8 +40,11 @@ pipeline {
 
       stage('Deploy container') {
         steps{
-            sh "docker pull salvatorevenditti/eureka:${BUILD_NUMBER}"
-            sh "docker run -d --name eureka -p 2525:8080 -v eureka_volume:/var/opt/eureka salvatorevenditti/eureka:${BUILD_NUMBER}"
+            docker.withServer('tcp://217.61.120.249:2375', 'swarm-certs') {
+                docker.image('salvatorevenditti/eureka:${BUILD_NUMBER}').withRun('-p 9090:9090') {
+                        /* do things */
+                }
+            }
         }
       }
    }
