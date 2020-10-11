@@ -30,6 +30,7 @@ pipeline {
             sh "docker login -u 'salvatorevenditti' -p 'Atsmt.1090'"
             sh "docker pull registry:2.7.1"
             sh "docker run -d --name eureka_registry registry:2.7.1 "
+            sh "docker rm eureka --force"
             sh "docker run -d --name eureka eureka:1.0 "
             sh "docker tag eureka eureka_registry"
             sh "docker rm eureka --force"
