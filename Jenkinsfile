@@ -33,7 +33,7 @@ pipeline {
             sh "docker run -d --name eureka_registry registry:2.7.1 "
             sh "docker run -d --name eureka eureka:1.0 "
             sh "docker tag eureka:1.0 eureka_registry"
-            sh "docker push eureka_registry salvatorevenditti/eureka:${BUILD_NUMBER}"
+            sh "docker push salvatorevenditti/eureka:${BUILD_NUMBER}"
             sh "docker rm eureka --force"
         }
       }
