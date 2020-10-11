@@ -61,4 +61,10 @@ public class AccessController {
 		emailService.mapAndSendEmail(new Email(), EmailType.USERNAME, changeUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
+
+	@PostMapping(value = "/test")
+	public ResponseEntity<User> test(@RequestBody @Validated LoginUserDto loginUserDto) {
+		User user = userService.loginUser(loginUserDto);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
 }
