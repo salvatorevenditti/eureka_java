@@ -43,7 +43,6 @@ public class LoginUserValidatorTest {
 	@BeforeEach
 	protected void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-
 		loginUserDto = new LoginUserDto();
 		user = new User();
 		loginUserDto.setPassword(TEST_PWD);

@@ -61,7 +61,6 @@ public class User {
 		this.userSaltPassword = CryptoUtil.generateSalt();
 		this.userHashPassword = CryptoUtil.generateHashWithGivenSalt(createUserDto.getPassword(), this.userSaltPassword);
 		this.correlationId = UUID.randomUUID().toString();
-
 		return this;
 	}
 

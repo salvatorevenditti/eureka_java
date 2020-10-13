@@ -50,7 +50,7 @@ public class EmailService {
             email.setTo((String) emailField.get(t));
             //TODO SEND CHANGED EMAIL ALERT ON OLD EMAIL
             switch (type) {
-                case CREATE_USER:
+                case CREATE:
                     email.setSubject(EUREKA_TEAM + SUBJECT_CREATE_SUCCESS);
                     email.setText(HI_THERE +
                             BODY_CREATE_WELCOME + (String) usernameField.get(t));

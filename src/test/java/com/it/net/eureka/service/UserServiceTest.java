@@ -57,7 +57,6 @@ public class UserServiceTest {
     @BeforeEach
     protected void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-
         createUserDto = new CreateUserDto();
         loginUserDto = new LoginUserDto();
         changeUserDto = new ChangeUserDto();

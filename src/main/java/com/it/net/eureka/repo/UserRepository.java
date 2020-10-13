@@ -5,12 +5,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.it.net.eureka.model.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserRepository extends CrudRepository<User, Integer>{
 
 	@Query(value = 
 			"SELECT " 
-			+ "(CASE WHEN (SELECT count(*) FROM User WHERE USERNAME = :username) <> 0 THEN 'true' "
+			+ "(CASE WHEN (SELECT count(*) FROM USER WHERE USER_USERNAME = :username) <> 0 THEN 'true' "
 			+ "ELSE 'false' "  
 			+ "END)",
 			nativeQuery = true)
@@ -18,7 +20,7 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 
 	@Query(value = 
 			"SELECT " 
-			+ "(CASE WHEN (SELECT count(*) FROM User WHERE EMAIL = :email) <> 0 THEN 'true' "
+			+ "(CASE WHEN (SELECT count(*) FROM USER WHERE USER_EMAIL = :email) <> 0 THEN 'true' "
 			+ "ELSE 'false' "  
 			+ "END)",
 			nativeQuery = true)
@@ -26,13 +28,13 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 	
 	@Query(value = 
 			"SELECT * "
-			+ "FROM User WHERE USERNAME = :username",
+			+ "FROM USER WHERE USER_USERNAME = :username",
 			nativeQuery = true)
 	User findByUsername(@Param("username") String username);
 	
 	@Query(value = 
 			"SELECT * "
-			+ "FROM User WHERE EMAIL = :email",
+			+ "FROM USER WHERE USER_EMAIL = :email",
 			nativeQuery = true)
 	User findByEmail(@Param("email") String email);
 

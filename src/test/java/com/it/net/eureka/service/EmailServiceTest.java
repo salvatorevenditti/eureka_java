@@ -44,7 +44,7 @@ class EmailServiceTest {
 
     @Test
     void mapAndSendEmail() {
-        emailService.mapAndSendEmail(new Email(), EmailType.CREATE_USER, new CreateUserDto());
+        emailService.mapAndSendEmail(new Email(), EmailType.CREATE, new CreateUserDto());
         emailService.mapAndSendEmail(new Email(), EmailType.PASSWORD, new ChangeUserDto());
         emailService.mapAndSendEmail(new Email(), EmailType.EMAIL, new ChangeUserDto());
         emailService.mapAndSendEmail(new Email(), EmailType.USERNAME, new ChangeUserDto());

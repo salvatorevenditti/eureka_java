@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class AccessControllerTest {
+public class UserAccessControllerTest {
 
 	@Mock
 	private EmailService emailService;
@@ -30,7 +30,7 @@ public class AccessControllerTest {
 	private UserService userService;
 
 	@InjectMocks
-	private AccessController accessController;
+	private UserAccessController userAccessController;
 
 	private CreateUserDto createUserDto;
 	private LoginUserDto loginUserDto;
@@ -44,30 +44,30 @@ public class AccessControllerTest {
 	@Test
 	public final void testSignUp() throws Exception {
 		given(userService.createUser(createUserDto)).willReturn(user);
-		assertNotNull(accessController.signUp(createUserDto));
+		assertNotNull(userAccessController.signUp(createUserDto));
 	}
 
 	@Test
 	public final void testLogIn() throws Exception {
 		given(userService.loginUser(loginUserDto)).willReturn(user);
-		assertNotNull(accessController.logIn(loginUserDto));
+		assertNotNull(userAccessController.logIn(loginUserDto));
 	}
 
 	@Test
 	public final void testChangePassword() throws Exception {
 		given(userService.changePassword(changeUserDto)).willReturn(user);
-		assertNotNull(accessController.changePassword(changeUserDto));
+		assertNotNull(userAccessController.changePassword(changeUserDto));
 	}
 
 	@Test
 	public final void testChangeEmail() throws Exception {
 		given(userService.changeEmail(changeUserDto)).willReturn(user);
-		assertNotNull(accessController.changeEmail(changeUserDto));
+		assertNotNull(userAccessController.changeEmail(changeUserDto));
 	}
 
 	@Test
 	public final void testChangeUsername() throws Exception {
 		given(userService.changeUsername(changeUserDto)).willReturn(user);
-		assertNotNull(accessController.changeUsername(changeUserDto));
+		assertNotNull(userAccessController.changeUsername(changeUserDto));
 	}
 }

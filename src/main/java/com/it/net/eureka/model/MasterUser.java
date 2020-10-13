@@ -2,6 +2,7 @@ package com.it.net.eureka.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Table(name = "MASTER_USER")
@@ -40,6 +41,11 @@ public class MasterUser {
 
     @Column(name = "PRICE", insertable = true, updatable = true, nullable = true)
     private BigDecimal price;
+
+    @PrePersist
+    public void init() {
+        this.correlationId = UUID.randomUUID().toString();
+    }
 
     public Integer getMasterUserId() {
         return masterUserId;

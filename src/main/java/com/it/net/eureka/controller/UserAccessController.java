@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/user",
 		produces = {MediaType.APPLICATION_JSON_VALUE},
 		consumes = {MediaType.APPLICATION_JSON_VALUE})
-public class AccessController {
+public class UserAccessController {
 
 	@Autowired
 	private UserService userService;
@@ -31,7 +31,7 @@ public class AccessController {
 	@PostMapping
 	public ResponseEntity<User> signUp(@RequestBody @Validated CreateUserDto createUserDto) {
 		User user = userService.createUser(createUserDto);
-		emailService.mapAndSendEmail(new Email(), EmailType.CREATE_USER, createUserDto);
+		emailService.mapAndSendEmail(new Email(), EmailType.CREATE, createUserDto);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 

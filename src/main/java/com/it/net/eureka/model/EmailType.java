@@ -1,7 +1,7 @@
 package com.it.net.eureka.model;
 
 public enum EmailType {
-    CREATE_USER,
+    CREATE,
     PASSWORD,
     USERNAME,
     EMAIL,

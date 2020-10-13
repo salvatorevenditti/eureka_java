@@ -20,10 +20,10 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableSwagger2
-public class ProvaApplication extends SpringBootServletInitializer {
+public class EurekaApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProvaApplication.class, args);
+		SpringApplication.run(EurekaApplication.class, args);
 	}
 
 	@Bean
@@ -40,7 +40,7 @@ public class ProvaApplication extends SpringBootServletInitializer {
 	}
 
 	@Bean
-	public SimpleMailMessage emailTemplate() {
+	public static SimpleMailMessage emailTemplate() {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(Costants.STR_TEST);
 		message.setFrom(Costants.STR_TEST);

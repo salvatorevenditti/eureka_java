@@ -1,5 +1,8 @@
 package com.it.net.eureka.model;
 
+import com.it.net.eureka.dto.CreateMasterDto;
+import com.it.net.eureka.utils.CryptoUtil;
+
 import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.Arrays;
@@ -38,6 +41,16 @@ public class Master {
     @PrePersist
     public void init() {
         this.correlationId = UUID.randomUUID().toString();
+    }
+
+    public Master mapEntity(CreateMasterDto createMasterDto) {
+        this.setCorrelationId(UUID.randomUUID().toString());
+        this.setMasterSaltPassword(CryptoUtil.generateSalt());
+        this.setMasterHashPassword(CryptoUtil.generateHashWithGivenSalt(createMasterDto.getPassword(), this.masterSaltPassword));
+        this.setEnabled(createMasterDto.isEnabled());
+        this.setMasterUsername(createMasterDto.getUsername());
+        this.setMasterEmail(createMasterDto.getEmail());
+        return this;
     }
 
     public Integer getMasterId() {
