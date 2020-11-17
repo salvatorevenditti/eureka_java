@@ -5,6 +5,7 @@ import com.it.net.eureka.dto.CreateUserDto;
 import com.it.net.eureka.dto.LoginUserDto;
 import com.it.net.eureka.model.Email;
 import com.it.net.eureka.model.EmailType;
+import com.it.net.eureka.model.Master;
 import com.it.net.eureka.model.User;
 import com.it.net.eureka.service.EmailService;
 import com.it.net.eureka.service.UserService;
@@ -17,9 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/user",
-		produces = {MediaType.APPLICATION_JSON_VALUE},
-		consumes = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/user")
 public class UserAccessController {
 
 	@Autowired
@@ -59,6 +58,12 @@ public class UserAccessController {
 	public ResponseEntity<User> changeUsername(@RequestBody @Validated ChangeUserDto changeUserDto) throws NotFoundException {
 		User user = userService.changeUsername(changeUserDto);
 		emailService.mapAndSendEmail(new Email(), EmailType.USERNAME, changeUserDto);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/{correlationId}")
+	public ResponseEntity<User> getUser(@RequestParam String correlationId) throws NotFoundException {
+		User user = userService.getUser(correlationId);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
 }
