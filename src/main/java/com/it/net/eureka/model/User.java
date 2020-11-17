@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "USER",
+@Table(name = "[USER]",
 		indexes = {
 				@Index(columnList = "USER_USERNAME", unique = true),
 				@Index(columnList = "USER_EMAIL", unique = true)
