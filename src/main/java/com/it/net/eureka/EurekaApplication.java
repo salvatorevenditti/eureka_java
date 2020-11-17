@@ -1,8 +1,10 @@
 package com.it.net.eureka;
 
 import com.it.net.eureka.utils.Costants;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.hateoas.client.LinkDiscoverer;
@@ -15,12 +17,19 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
 @EnableSwagger2
 public class EurekaApplication extends SpringBootServletInitializer {
+
+	//DATASOURCE VARIABLES
+	@Value("${spring.datasource.url}") String dsUrl;
+	@Value("${spring.datasource.username}") String dsUsername;
+	@Value("${spring.datasource.password}") String dsPassword;
+	@Value("${spring.datasource.driverClassName}") String dsDriverClassName;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EurekaApplication.class, args);
@@ -47,5 +56,15 @@ public class EurekaApplication extends SpringBootServletInitializer {
 		message.setSubject(Costants.STR_TEST);
 		message.setText(Costants.STR_TEST);
 		return message;
+	}
+
+	@Bean
+	public DataSource getDataSource() {
+		DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+		dataSourceBuilder.driverClassName(dsDriverClassName);
+		dataSourceBuilder.url(dsUrl);
+		dataSourceBuilder.username(dsUsername);
+		dataSourceBuilder.password(dsPassword);
+		return dataSourceBuilder.build();
 	}
 }

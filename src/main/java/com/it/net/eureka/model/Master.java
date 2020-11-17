@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
-@Table(name = "dbo.MASTER",
+@Table(name = "MASTER",
         indexes = {
                 @Index(columnList = "MASTER_USERNAME", unique = true)
         })
