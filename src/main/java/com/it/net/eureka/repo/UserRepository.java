@@ -15,7 +15,7 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 
 	@Query(value = 
 			"SELECT " 
-			+ "(CASE WHEN (SELECT count(*) FROM USER WHERE USER_USERNAME = :username) <> 0 THEN 'true' "
+			+ "(CASE WHEN (SELECT count(*) FROM [USER] WHERE USER_USERNAME = :username) <> 0 THEN 'true' "
 			+ "ELSE 'false' "  
 			+ "END)",
 			nativeQuery = true)
@@ -23,7 +23,7 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 
 	@Query(value = 
 			"SELECT " 
-			+ "(CASE WHEN (SELECT count(*) FROM USER WHERE USER_EMAIL = :email) <> 0 THEN 'true' "
+			+ "(CASE WHEN (SELECT count(*) FROM [USER] WHERE USER_EMAIL = :email) <> 0 THEN 'true' "
 			+ "ELSE 'false' "  
 			+ "END)",
 			nativeQuery = true)
@@ -31,19 +31,19 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 	
 	@Query(value = 
 			"SELECT * "
-			+ "FROM USER WHERE USER_USERNAME = :username",
+			+ "FROM [USER] WHERE USER_USERNAME = :username",
 			nativeQuery = true)
 	User findByUsername(@Param("username") String username);
 	
 	@Query(value = 
 			"SELECT * "
-			+ "FROM USER WHERE USER_EMAIL = :email",
+			+ "FROM [USER] WHERE USER_EMAIL = :email",
 			nativeQuery = true)
 	User findByEmail(@Param("email") String email);
 
 	@Query(value =
 			"SELECT * "
-					+ "FROM USER WHERE CORRELATION_ID = :correlationId",
+					+ "FROM [USER] WHERE CORRELATION_ID = :correlationId",
 			nativeQuery = true)
 	Optional<User> findByCorrelationId(@Param("correlationId") String correlationId);
 
