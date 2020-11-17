@@ -6,7 +6,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "dbo.MASTER_USER")
+@Table(name = "MASTER_USER")
 public class MasterUser {
 
     @Id
