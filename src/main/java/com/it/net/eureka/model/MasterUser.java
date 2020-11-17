@@ -2,14 +2,15 @@ package com.it.net.eureka.model;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "MASTER_USER")
+@Table(name = "dbo.MASTER_USER")
 public class MasterUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MASTER_USER_ID", insertable = false, updatable = false, nullable = false)
     private Integer masterUserId;
 
@@ -45,6 +46,7 @@ public class MasterUser {
     @PrePersist
     public void init() {
         this.correlationId = UUID.randomUUID().toString();
+        this.insertDate = OffsetDateTime.now().toString();
     }
 
     public Integer getMasterUserId() {

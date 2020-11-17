@@ -3,6 +3,7 @@ package com.it.net.eureka.service;
 import com.it.net.eureka.dto.ChangeUserDto;
 import com.it.net.eureka.dto.CreateUserDto;
 import com.it.net.eureka.dto.LoginUserDto;
+import com.it.net.eureka.model.Master;
 import com.it.net.eureka.model.User;
 import com.it.net.eureka.repo.UserRepository;
 import com.it.net.eureka.utils.CryptoUtil;
@@ -12,6 +13,8 @@ import com.it.net.eureka.validator.LoginUserValidator;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -72,5 +75,12 @@ public class UserService {
 		changeUserValidator.checkOldPassword(changeUserDto, user);
 		user.setUserEmail(changeUserDto.getEmail());
 		return userRepo.save(user);
+	}
+
+	public User getUser(String correlationId) throws NotFoundException {
+		Optional<User> userOpt = userRepo.findByCorrelationId(correlationId);
+		user = userOpt.get();
+		if(user == null) throw new NotFoundException("User " + correlationId + "not found! ");
+		return user;
 	}
 }

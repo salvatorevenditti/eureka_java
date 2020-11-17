@@ -9,7 +9,7 @@ import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "USER",
+@Table(name = "dbo.USER",
 		indexes = {
 				@Index(columnList = "USER_USERNAME", unique = true),
 				@Index(columnList = "USER_EMAIL", unique = true)
@@ -17,7 +17,7 @@ import java.util.UUID;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID", nullable = false, insertable = false, updatable = false)
 	private Integer userId;
 	
