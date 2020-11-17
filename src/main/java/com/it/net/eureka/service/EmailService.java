@@ -44,7 +44,7 @@ public class EmailService {
         email.setFrom(System.getProperty(EMAIL_FROM_PROPERTY));
         try {
             Field emailField = t.getClass().getSuperclass().getDeclaredField("email");
-            Field usernameField = t.getClass().getSuperclass().getDeclaredField("password");
+            Field usernameField = t.getClass().getSuperclass().getDeclaredField("username");
             emailField.setAccessible(true);
             usernameField.setAccessible(true);
             email.setTo((String) emailField.get(t));
