@@ -9,14 +9,14 @@ import java.util.Arrays;
 import java.util.UUID;
 
 @Entity
-@Table(name = "MASTER",
+@Table(name = "dbo.MASTER",
         indexes = {
                 @Index(columnList = "MASTER_USERNAME", unique = true)
         })
 public class Master {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MASTER_ID", nullable = false, insertable = false, updatable = false)
     private Integer masterId;
 

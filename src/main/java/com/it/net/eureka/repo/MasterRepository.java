@@ -7,6 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface MasterRepository extends CrudRepository<Master, Integer> {
 
@@ -37,5 +39,11 @@ public interface MasterRepository extends CrudRepository<Master, Integer> {
                     + "FROM MASTER WHERE MASTER_EMAIL = :email",
             nativeQuery = true)
     Master findByEmail(@Param("email") String email);
+
+    @Query(value =
+            "SELECT * "
+                    + "FROM MASTER WHERE CORRELATION_ID = :correlationId",
+            nativeQuery = true)
+    Optional<Master> findByCorrelationId(@Param("correlationId") String correlationId);
 
 }

@@ -11,6 +11,8 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class MasterService {
 
@@ -66,6 +68,13 @@ public class MasterService {
         changeMasterValidator.checkOldPassword(changeMasterDto, master);
         master.setMasterEmail(changeMasterDto.getEmail());
         return masterRepository.save(master);
+    }
+
+    public Master getMaster(String correlationId) throws NotFoundException {
+        Optional<Master> masterOpt = masterRepository.findByCorrelationId(correlationId);
+        master = masterOpt.get();
+        if(master == null) throw new NotFoundException("Master not found");
+        return master;
     }
 
     public Master loginMaster(LoginMasterDto loginMasterDto) {

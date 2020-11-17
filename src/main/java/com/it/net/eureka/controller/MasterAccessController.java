@@ -15,9 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/master",
-        produces = {MediaType.APPLICATION_JSON_VALUE},
-        consumes = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(value = "/master")
 public class MasterAccessController {
 
     @Autowired
@@ -57,6 +55,12 @@ public class MasterAccessController {
     public ResponseEntity<Master> changeUsername(@RequestBody @Validated ChangeMasterDto changeMasterDto) throws NotFoundException {
         Master master = masterService.changeUsername(changeMasterDto);
         emailService.mapAndSendEmail(new Email(), EmailType.USERNAME, changeMasterDto);
+        return new ResponseEntity<>(master, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{correlationId}")
+    public ResponseEntity<Master> getMaster(@RequestParam String correlationId) throws NotFoundException {
+        Master master = masterService.getMaster(correlationId);
         return new ResponseEntity<>(master, HttpStatus.OK);
     }
 }
