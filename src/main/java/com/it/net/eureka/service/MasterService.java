@@ -1,6 +1,8 @@
 package com.it.net.eureka.service;
 
-import com.it.net.eureka.dto.*;
+import com.it.net.eureka.dto.ChangeMasterDto;
+import com.it.net.eureka.dto.CreateMasterDto;
+import com.it.net.eureka.dto.LoginMasterDto;
 import com.it.net.eureka.model.Master;
 import com.it.net.eureka.repo.MasterRepository;
 import com.it.net.eureka.utils.CryptoUtil;
@@ -73,7 +75,15 @@ public class MasterService {
     public Master getMaster(String correlationId) throws NotFoundException {
         Optional<Master> masterOpt = masterRepository.findByCorrelationId(correlationId);
         master = masterOpt.get();
-        if(master == null) throw new NotFoundException("Master not found");
+        if (master == null) throw new NotFoundException("Master not found");
+        return master;
+    }
+
+    public Master deleteMaster(String correlationId) throws NotFoundException {
+        Optional<Master> masterOpt = masterRepository.findByCorrelationId(correlationId);
+        master = masterOpt.get();
+        if (master == null) throw new NotFoundException("Master not found");
+        masterRepository.delete(master);
         return master;
     }
 

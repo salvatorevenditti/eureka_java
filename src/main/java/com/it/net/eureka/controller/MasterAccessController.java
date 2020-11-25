@@ -1,6 +1,8 @@
 package com.it.net.eureka.controller;
 
-import com.it.net.eureka.dto.*;
+import com.it.net.eureka.dto.ChangeMasterDto;
+import com.it.net.eureka.dto.CreateMasterDto;
+import com.it.net.eureka.dto.LoginMasterDto;
 import com.it.net.eureka.model.Email;
 import com.it.net.eureka.model.EmailType;
 import com.it.net.eureka.model.Master;
@@ -9,7 +11,6 @@ import com.it.net.eureka.service.MasterService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,21 +38,21 @@ public class MasterAccessController {
         return new ResponseEntity<>(master, HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/password")
+    @PutMapping(value = "/password")
     public ResponseEntity<Master> changePassword(@RequestBody @Validated ChangeMasterDto changeMasterDto) throws NotFoundException {
         Master master = masterService.changePassword(changeMasterDto);
         emailService.mapAndSendEmail(new Email(), EmailType.PASSWORD, changeMasterDto);
         return new ResponseEntity<>(master, HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/email")
+    @PutMapping(value = "/email")
     public ResponseEntity<Master> changeEmail(@RequestBody @Validated ChangeMasterDto changeMasterDto) throws NotFoundException {
         Master master = masterService.changeEmail(changeMasterDto);
         emailService.mapAndSendEmail(new Email(), EmailType.EMAIL, changeMasterDto);
         return new ResponseEntity<>(master, HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/username")
+    @PutMapping(value = "/username")
     public ResponseEntity<Master> changeUsername(@RequestBody @Validated ChangeMasterDto changeMasterDto) throws NotFoundException {
         Master master = masterService.changeUsername(changeMasterDto);
         emailService.mapAndSendEmail(new Email(), EmailType.USERNAME, changeMasterDto);
@@ -61,6 +62,12 @@ public class MasterAccessController {
     @GetMapping(value = "/{correlationId}")
     public ResponseEntity<Master> getMaster(@RequestParam String correlationId) throws NotFoundException {
         Master master = masterService.getMaster(correlationId);
+        return new ResponseEntity<>(master, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{correlationId}")
+    public ResponseEntity<Master> deleteMaster(@RequestParam String correlationId) throws NotFoundException {
+        Master master = masterService.deleteMaster(correlationId);
         return new ResponseEntity<>(master, HttpStatus.OK);
     }
 }

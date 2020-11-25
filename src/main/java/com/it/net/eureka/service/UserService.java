@@ -3,7 +3,6 @@ package com.it.net.eureka.service;
 import com.it.net.eureka.dto.ChangeUserDto;
 import com.it.net.eureka.dto.CreateUserDto;
 import com.it.net.eureka.dto.LoginUserDto;
-import com.it.net.eureka.model.Master;
 import com.it.net.eureka.model.User;
 import com.it.net.eureka.repo.UserRepository;
 import com.it.net.eureka.utils.CryptoUtil;
@@ -73,14 +72,22 @@ public class UserService {
 		if (user == null)
 			throw new NotFoundException("Username doesn't exists!");
 		changeUserValidator.checkOldPassword(changeUserDto, user);
-		user.setUserEmail(changeUserDto.getEmail());
-		return userRepo.save(user);
-	}
+        user.setUserEmail(changeUserDto.getEmail());
+        return userRepo.save(user);
+    }
 
-	public User getUser(String correlationId) throws NotFoundException {
-		Optional<User> userOpt = userRepo.findByCorrelationId(correlationId);
-		user = userOpt.get();
-		if(user == null) throw new NotFoundException("User " + correlationId + "not found! ");
-		return user;
-	}
+    public User getUser(String correlationId) throws NotFoundException {
+        Optional<User> userOpt = userRepo.findByCorrelationId(correlationId);
+        user = userOpt.get();
+        if (user == null) throw new NotFoundException("User " + correlationId + "not found! ");
+        return user;
+    }
+
+    public User deleteUser(String correlationId) throws NotFoundException {
+        Optional<User> userOpt = userRepo.findByCorrelationId(correlationId);
+        user = userOpt.get();
+        if (user == null) throw new NotFoundException("User " + correlationId + "not found! ");
+        userRepo.delete(user);
+        return user;
+    }
 }
