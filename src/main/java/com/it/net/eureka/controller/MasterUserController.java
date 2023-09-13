@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/master/user")
+@CrossOrigin
 public class MasterUserController {
 
     @Autowired

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/master")
+@CrossOrigin
 public class MasterAccessController {
 
     @Autowired

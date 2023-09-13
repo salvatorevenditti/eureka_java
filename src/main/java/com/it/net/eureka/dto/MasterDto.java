@@ -10,7 +10,7 @@ public class MasterDto {
 
     @NotNull
     @NotBlank
-    @Size(min = 6, max = 12)
+    @Size(min = 6, max = 50)
     @JsonProperty("username")
     private String username;
 
